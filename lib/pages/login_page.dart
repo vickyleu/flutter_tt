@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import '../utils/utils.dart';
 import 'home_page.dart';
-import '../teamtalk_dart_lib/src/client.dart';
+import 'package:teamtalk_dart_lib/client.dart';
 import '../models/helper.dart';
 import 'package:toast/toast.dart';
 import 'package:shared_preferences/shared_preferences.dart';

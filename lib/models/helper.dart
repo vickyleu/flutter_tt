@@ -7,10 +7,10 @@
 
 import 'package:flutter_tt/models/dao.dart';
 import 'package:flutter_tt/models/database_helper.dart';
-import '../teamtalk_dart_lib/src/client.dart';
-import '../teamtalk_dart_lib/src/security.dart';
-import '../teamtalk_dart_lib/pb/IM.BaseDefine.pb.dart';
-import '../teamtalk_dart_lib/pb/IM.Message.pb.dart';
+import 'package:teamtalk_dart_lib/client.dart';
+import 'package:teamtalk_dart_lib/security.dart';
+import 'package:teamtalk_dart_lib/pb/IM.BaseDefine.pb.dart';
+import 'package:teamtalk_dart_lib/pb/IM.Message.pb.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:event_bus/event_bus.dart';
@@ -36,7 +36,6 @@ int currentUnixTime() {
 }
 
 class IMHelper {
-
   static final DD_MESSAGE_IMAGE_PREFIX = "&\$#@~^@[{:";
   static final DD_MESSAGE_IMAGE_SUFFIX = ":}]&\$~@#@";
 
@@ -121,7 +120,7 @@ class IMHelper {
     return sessionMap[sessionKey];
   }
 
-  buildAndSaveSessionForNewMsg(MessageEntry msg) async{
+  buildAndSaveSessionForNewMsg(MessageEntry msg) async {
     var sessionType = IMSeesionType.Person;
     if (msg.msgType == IMMsgType.MSG_TYPE_GROUP_AUDIO ||
         msg.msgType == IMMsgType.MSG_TYPE_GROUP_TEXT) {
@@ -268,7 +267,8 @@ class IMHelper {
   decodeToImage(msgData) {
     try {
       var tmplastMsg = utf8.decode(msgData);
-      if (tmplastMsg.length > 10 && tmplastMsg.startsWith(DD_MESSAGE_IMAGE_PREFIX)) {
+      if (tmplastMsg.length > 10 &&
+          tmplastMsg.startsWith(DD_MESSAGE_IMAGE_PREFIX)) {
         return tmplastMsg;
       }
       return security.decryptText(tmplastMsg);
@@ -280,14 +280,16 @@ class IMHelper {
     String lastMsg = '';
     try {
       var tmplastMsg = utf8.decode(msgData);
-      if (tmplastMsg.length > 10 && tmplastMsg.startsWith(DD_MESSAGE_IMAGE_PREFIX)) {
+      if (tmplastMsg.length > 10 &&
+          tmplastMsg.startsWith(DD_MESSAGE_IMAGE_PREFIX)) {
         lastMsg = '[图片]';
       } else if (msgType == MsgType.MSG_TYPE_GROUP_AUDIO.value ||
           msgType == MsgType.MSG_TYPE_SINGLE_AUDIO.value) {
         lastMsg = '[语音]';
       } else {
         lastMsg = security.decryptText(tmplastMsg);
-        if (lastMsg.length > 10 && lastMsg.startsWith(DD_MESSAGE_IMAGE_PREFIX)) {
+        if (lastMsg.length > 10 &&
+            lastMsg.startsWith(DD_MESSAGE_IMAGE_PREFIX)) {
           lastMsg = '[图片]';
         }
       }
